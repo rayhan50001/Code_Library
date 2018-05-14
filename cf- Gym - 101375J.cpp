@@ -106,7 +106,8 @@ template< class T > inline T _lcm(T x,T y) { return x*y/_gcd(x,y);}
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
-int dx1[]={1,0,-1,0};
+
+int dx1[]={1,0,-1,0} ;
 int dy1[]={0,1,0,-1}; //4 Direction
 int dx[]={1,1,0,-1,-1,-1,0,1};
 int dy[]={0,1,1,1,0,-1,-1,-1};
