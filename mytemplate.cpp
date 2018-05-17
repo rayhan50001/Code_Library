@@ -119,8 +119,32 @@ template<typename T>inline vi parse(T str)
     while(os>>s)res.pb(s);
     return res;
 }
-ll SQRT(ll n){ll e=sqrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
-ll CBRT(ll n){ll e=cbrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
+ll SQRT(ll n)
+{
+    ll e=sqrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
+ll CBRT(ll n)
+{
+    ll e=cbrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
 template< class T > inline T _bigmod(T n,T m)
 {
     T ans=1,mult=n%mod;
@@ -170,143 +194,23 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
     if(neg)
         num *= -1;
 }
-namespace fastio{
-    int ptr, ye;
-    char temp[25], str[8333667], out[8333669];
-
-    void init(){
-        ptr = 0, ye = 0;
-        fread(str, 1, 8333667, stdin);
-    }
-
-    inline int number(){
-        int i, j, val = 0;
-
-        while (str[ptr] < 45 || str[ptr] > 57) ptr++;
-        while (str[ptr] > 47 && str[ptr] < 58) val = (val << 1) + (val << 3) + (str[ptr++] - 48);
-        return val;
-    }
-
-    inline void convert(long long x){
-        int i, d = 0;
-
-        for (; ;){
-            temp[++d] = (x % 10) + 48;
-            x /= 10;
-            if (!x) break;
-        }
-        for (i = d; i; i--) out[ye++] = temp[i];
-        out[ye++] = 10;
-    }
-
-    inline void print(){
-        fwrite(out, 1, ye, stdout);
-    }
-}
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
-int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
+//int dx[]= {1,1,0,-1,-1,-1,0,1};
+//int dy[]= {0,1,1,1,0,-1,-1,-1}; //8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 //int dx[6]={2,1,-1,-2,-1,1};int dy[6]={0,1,1,0,-1,-1}; //Hexagonal Direction
-//bool compare(const pair<float,string>&i, const pair<float,string>&j)
-//{
-//    return i.first > j.first;
-//}
-//int in_c() { int c; for (; (c = getchar()) <= ' '; ) { if (!~c) throw ~0; } return c; }
 //int EQ(double d) {
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
 int main()
 {
-//    clock_t begin = clock();
-//    //your code goes here
-      int n;
-      string s1,s2,s3;
-      vector<pair<int,int> >pr;
-      cin>>n>>s1>>s2>>s3;
-      if(n>=s1.size())
-      {
-            cout<<"Draw\n";
-      }
-      else
-      {
-          map<char,int>mp;
-          int mx=0;
-          for(int i=0; i<s1.size(); i++)
-          {
-            mp[s1[i]]++;
-            mx=max(mx,mp[s1[i]]);
-          }
-          int len=s1.size();
-          int left=len-mx;
-          int turn_left=n-left;
-          int ans=mx;
-          if(turn_left<=0)ans+=n;
-          else
-          {
-              ans+=min(len,min(left,n));
-              if(turn_left%2==1)ans--;
-          }
-           if(n>=left && n>1)ans=len;
-          pr.pb({min(len,ans),1});
-          mp.clear();
-          mx=0;
-          for(int i=0; i<s2.size(); i++)
-          {
-            mp[s2[i]]++;
-            mx=max(mx,mp[s2[i]]);
-          }
-          len=s2.size();
-          left=len-mx;
-          turn_left=n-left;
-          ans=mx;
-          if(turn_left<=0)ans+=n;
-          else
-          {
-              ans+=min(len,min(left,n));
-              if(turn_left%2==1)ans--;
-          }
-          if(n>=left && n>1)ans=len;
-           pr.pb({min(len,ans),2});
-           mp.clear();
-          mx=0;
-          for(int i=0; i<s3.size(); i++)
-          {
-            mp[s3[i]]++;
-            mx=max(mx,mp[s3[i]]);
-          }
-          len=s2.size();
-          left=len-mx;
-          turn_left=n-left;
-          ans=mx;
-          if(turn_left<=0)ans+=n;
-          else
-          {
-              ans+=min(len,min(left,n));
-              if(turn_left%2==1)ans--;
-          }
-           if(n>=left && n>1)ans=len;
-           pr.pb({min(len,ans),3});
-          sort(pr.begin(),pr.end());
-          mx=pr[pr.size()-1].first;
-          int c=0;
-          for(int i=0; i<3; i++)
-          {
-              //cout<<pr[i].first<<" "<<pr[i].second<<endl;
-              if(pr[i].first==mx)c++;
-          }
-          if(c>=2)cout<<"Draw\n";
-          else
-          {
-              int per=pr[pr.size()-1].second;
-              if(per==1)cout<<"Kuro\n";
-              else if(per==2)cout<<"Shiro\n";
-              else cout<<"Katie\n";
-          }
-      }
-//    //end here
-//    clock_t end = clock();
-//    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
-//    return 0;
+    clock_t begin = clock();
+    //    //your code goes here
+
+    //    //end here
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
+    return 0;
 }
