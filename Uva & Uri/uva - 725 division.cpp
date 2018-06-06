@@ -1,4 +1,4 @@
-
+//all possible combination
 #include<iostream>
 #include<cstdio>
 #include<list>

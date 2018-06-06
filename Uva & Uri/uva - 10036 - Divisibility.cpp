@@ -1,4 +1,4 @@
-//Floyd Warshall (minimum cost From one node to another)
+//dp
 #include<iostream>
 #include<cstdio>
 #include<list>
@@ -29,7 +29,7 @@
 #include<unordered_map>
 using namespace std;
 //define for shortcut
-#define mem(a) memset(a,0,sizeof(a))
+#define mem(a) memset(a,-1,sizeof(a))
 #define all(a) a.begin(),a.end()
 #define sz(A) A.size()
 #define clr(a) memset(a,0,sizeof(a))
@@ -85,7 +85,6 @@ using namespace std;
 #define inf INT_MAX
 #define MX 100010
 #define DIST(x1,x2, y1, y2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
-#define NDIST(x1,x2, y1, y2) ((x1-x2)+(y1-y2))
 #define DIST3D(x1,x2, y1, y2, z1, z2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)) + ((z1-z2)*(z1-z2)))
 #define fast ios_base::sync_with_stdio(false);
 int power(int x, unsigned int y)
@@ -121,8 +120,32 @@ template<typename T>inline vi parse(T str)
     while(os>>s)res.pb(s);
     return res;
 }
-ll SQRT(ll n){ll e=sqrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
-ll CBRT(ll n){ll e=cbrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
+ll SQRT(ll n)
+{
+    ll e=sqrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
+ll CBRT(ll n)
+{
+    ll e=cbrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
 template< class T > inline T _bigmod(T n,T m)
 {
     T ans=1,mult=n%mod;
@@ -172,86 +195,54 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
     if(neg)
         num *= -1;
 }
-namespace fastio{
-    int ptr, ye;
-    char temp[25], str[8333667], out[8333669];
-
-    void init(){
-        ptr = 0, ye = 0;
-        fread(str, 1, 8333667, stdin);
-    }
-
-    inline int number(){
-        int i, j, val = 0;
-
-        while (str[ptr] < 45 || str[ptr] > 57) ptr++;
-        while (str[ptr] > 47 && str[ptr] < 58) val = (val << 1) + (val << 3) + (str[ptr++] - 48);
-        return val;
-    }
-
-    inline void convert(long long x){
-        int i, d = 0;
-
-        for (; ;){
-            temp[++d] = (x % 10) + 48;
-            x /= 10;
-            if (!x) break;
-        }
-        for (i = d; i; i--) out[ye++] = temp[i];
-        out[ye++] = 10;
-    }
-
-    inline void print(){
-        fwrite(out, 1, ye, stdout);
-    }
-}
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
-int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
+//int dx[]= {1,1,0,-1,-1,-1,0,1};
+//int dy[]= {0,1,1,1,0,-1,-1,-1}; //8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 //int dx[6]={2,1,-1,-2,-1,1};int dy[6]={0,1,1,0,-1,-1}; //Hexagonal Direction
-//bool compare(const pair<float,string>&i, const pair<float,string>&j)
-//{
-//    return i.first > j.first;
-//}
-//int in_c() { int c; for (; (c = getchar()) <= ' '; ) { if (!~c) throw ~0; } return c; }
 //int EQ(double d) {
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
-double dp[201][201];
+int dp[10001][101];
+int arr[100001];
+int n,k;
+int solve(int idx,int val)
+{
+    if(idx==n)
+    {
+        if(val==0)return 1;
+        else return 0;
+    }
+    int &ret=dp[idx][val];
+    if(ret!=-1)return dp[idx][val];
+    ret=solve(idx+1,(val+arr[idx]+k)%k);
+    ret|=solve(idx+1,(val-arr[idx]+k)%k);
+    dp[idx][val]=ret;
+    return ret;
+}
 int main()
 {
-//    clock_t begin = clock();
-//    //your code goes here
-      int n,kk=1;
-      while(sf(n) && n)
-      {
-          vector<pair<double,double> >v;
-          for(int i=0; i<n; i++)
-          {
-              double x,y;
-              cin>>x>>y;
-              v.pb({x,y});
-          }
-          for(int i=0; i<v.size(); i++)
-          {
-              for(int j=i+1; j<v.size(); j++)
-              {
-                  dp[i][j]=d[j][i]=sqrt(DIST(v[i].first,v[j].first,v[i].second,v[j].second));
-              }
-          }
-          for(int k=0; k<v.size(); k++)
-          for(int i=0; i<v.size(); i++)
-          for(int j=0; j<v.size(); j++)
-          dp[i][j]=min(dp[i][j],max(dp[i][k],dp[k][j]));
-          printf("Scenario #%d\nFrog Distance = %.3f\n",kk++,dp[0][1]);
-          printf("\n");
-      }
-//    //end here
-//    clock_t end = clock();
-//    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
-//    return 0;
+    clock_t begin = clock();
+    //    //your code goes here
+    int tt;
+    sf(tt);
+    while(tt--)
+    {
+        mem(dp);
+        sf2(n,k);
+        for(int i=0; i<n; i++)
+        {
+            sf(arr[i]);
+        }
+        int ans=solve(1,(arr[0]+k)%k);
+        if(ans==1)printf("Divisible\n");
+        else printf("Not divisible\n");
+    }
+
+    //    //end here
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
+    return 0;
 }
-
-

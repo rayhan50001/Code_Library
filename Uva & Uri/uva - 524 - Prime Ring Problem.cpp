@@ -1,3 +1,4 @@
+//all possible combination (recursion)
 #include<iostream>
 #include<cstdio>
 #include<list>

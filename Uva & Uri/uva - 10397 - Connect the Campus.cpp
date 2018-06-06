@@ -1,4 +1,4 @@
-//Floyd Warshall (minimum cost From one node to another)
+//Kruskal (MST)
 #include<iostream>
 #include<cstdio>
 #include<list>
@@ -84,8 +84,7 @@ using namespace std;
 #define mod 1000000007
 #define inf INT_MAX
 #define MX 100010
-#define DIST(x1,x2, y1, y2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
-#define NDIST(x1,x2, y1, y2) ((x1-x2)+(y1-y2))
+#define DIST(x1,x2, y1, y2) sqrt(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
 #define DIST3D(x1,x2, y1, y2, z1, z2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)) + ((z1-z2)*(z1-z2)))
 #define fast ios_base::sync_with_stdio(false);
 int power(int x, unsigned int y)
@@ -121,8 +120,32 @@ template<typename T>inline vi parse(T str)
     while(os>>s)res.pb(s);
     return res;
 }
-ll SQRT(ll n){ll e=sqrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
-ll CBRT(ll n){ll e=cbrt(n*1.0);ll l=max(0LL,e-2),r=min(n,e+2);ll ans=0;while(l<=r){ll m=Mid(l,r);if(m*m*m<=n)ans=m,l=m+1;else r=m-1;}return ans;}
+ll SQRT(ll n)
+{
+    ll e=sqrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
+ll CBRT(ll n)
+{
+    ll e=cbrt(n*1.0);
+    ll l=max(0LL,e-2),r=min(n,e+2);
+    ll ans=0;
+    while(l<=r)
+    {
+        ll m=Mid(l,r);
+        if(m*m*m<=n)ans=m,l=m+1;
+        else r=m-1;
+    }
+    return ans;
+}
 template< class T > inline T _bigmod(T n,T m)
 {
     T ans=1,mult=n%mod;
@@ -172,86 +195,104 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
     if(neg)
         num *= -1;
 }
-namespace fastio{
-    int ptr, ye;
-    char temp[25], str[8333667], out[8333669];
-
-    void init(){
-        ptr = 0, ye = 0;
-        fread(str, 1, 8333667, stdin);
-    }
-
-    inline int number(){
-        int i, j, val = 0;
-
-        while (str[ptr] < 45 || str[ptr] > 57) ptr++;
-        while (str[ptr] > 47 && str[ptr] < 58) val = (val << 1) + (val << 3) + (str[ptr++] - 48);
-        return val;
-    }
-
-    inline void convert(long long x){
-        int i, d = 0;
-
-        for (; ;){
-            temp[++d] = (x % 10) + 48;
-            x /= 10;
-            if (!x) break;
-        }
-        for (i = d; i; i--) out[ye++] = temp[i];
-        out[ye++] = 10;
-    }
-
-    inline void print(){
-        fwrite(out, 1, ye, stdout);
-    }
-}
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
-int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
+//int dx[]= {1,1,0,-1,-1,-1,0,1};
+//int dy[]= {0,1,1,1,0,-1,-1,-1}; //8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 //int dx[6]={2,1,-1,-2,-1,1};int dy[6]={0,1,1,0,-1,-1}; //Hexagonal Direction
-//bool compare(const pair<float,string>&i, const pair<float,string>&j)
-//{
-//    return i.first > j.first;
-//}
-//int in_c() { int c; for (; (c = getchar()) <= ' '; ) { if (!~c) throw ~0; } return c; }
 //int EQ(double d) {
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
-double dp[201][201];
+int par[1000001];
+double x[1000001];
+double y[1000001];
+struct edge{
+    int u,v;
+    double w;
+}graph[1000001];
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(x==par[x])return x;
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+    {
+        par[xx] = yy;
+    }
+}
+bool cmp(edge p1,edge p2)
+{
+    return p1.w<p2.w;
+}
 int main()
 {
-//    clock_t begin = clock();
-//    //your code goes here
-      int n,kk=1;
-      while(sf(n) && n)
-      {
-          vector<pair<double,double> >v;
-          for(int i=0; i<n; i++)
-          {
-              double x,y;
-              cin>>x>>y;
-              v.pb({x,y});
-          }
-          for(int i=0; i<v.size(); i++)
-          {
-              for(int j=i+1; j<v.size(); j++)
-              {
-                  dp[i][j]=d[j][i]=sqrt(DIST(v[i].first,v[j].first,v[i].second,v[j].second));
-              }
-          }
-          for(int k=0; k<v.size(); k++)
-          for(int i=0; i<v.size(); i++)
-          for(int j=0; j<v.size(); j++)
-          dp[i][j]=min(dp[i][j],max(dp[i][k],dp[k][j]));
-          printf("Scenario #%d\nFrog Distance = %.3f\n",kk++,dp[0][1]);
-          printf("\n");
-      }
-//    //end here
-//    clock_t end = clock();
-//    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
-//    return 0;
+    clock_t begin = clock();
+    //    //your code goes here
+    int n;
+    while(sf(n)!=EOF)
+    {
+        init(n);
+        for(int i=1; i<=n; i++)
+        {
+            sd(x[i]);
+            sd(y[i]);
+        }
+        int m;
+        sf(m);
+        for(int i=0; i<m; i++)
+        {
+            int u,v;
+            sf2(u,v);
+            int xx=Find(u);
+            int yy=Find(v);
+            if(xx!=yy)
+            {
+                Union(u,v);
+            }
+        }
+        int e=0;
+        for(int i=1; i<=n; i++)
+        {
+            for(int j=i+1; j<=n; j++)
+            {
+                if(Find(i)!=Find(j))
+                {
+                    graph[e].u=i;
+                    graph[e].v=j;
+                    double val=DIST(x[i],x[j],y[i],y[j]);
+                    graph[e].w=val;
+                    e++;
+                }
+            }
+        }
+        sort(graph,graph+e,cmp);
+        double ans=0.0;
+        for(int i=0; i<e; i++)
+        {
+            int xx=Find(graph[i].u);
+            int yy=Find(graph[i].v);
+            //cout<<graph[i].w<<endl;
+            if(xx!=yy)
+            {
+                Union(graph[i].u,graph[i].v);
+                ans+=graph[i].w;
+            }
+        }
+        printf("%.2f\n",ans);
+    }
+    //    //end here
+    clock_t end = clock();
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
+    return 0;
 }
-
 

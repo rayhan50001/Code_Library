@@ -1,3 +1,4 @@
+//using Trie Algo
 #include<iostream>
 #include<cstdio>
 #include<list>
