@@ -84,7 +84,7 @@ using namespace std;
 #define mod 1000000007
 #define inf INT_MAX
 #define MX 100010
-#define DIST(x1,x2, y1, y2) sqrt(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
+#define DIST(x1,x2, y1, y2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
 #define DIST3D(x1,x2, y1, y2, z1, z2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)) + ((z1-z2)*(z1-z2)))
 #define fast ios_base::sync_with_stdio(false);
 int power(int x, unsigned int y)
@@ -237,52 +237,32 @@ int main()
 {
     clock_t begin = clock();
     //    //your code goes here
+    int n;
     int tt;
     fastIn(tt);
-    int p=1;
     while(tt--)
     {
-        if(p++>1)nl;
-        int n;
         fastIn(n);
-        init(n);
-        for(int i=1; i<=n; i++)
+        int m;
+        fastIn(m);
+        init(m);
+        int e=0;
+        for(int i=1; i<=m; i++)
         {
             fastIn(x[i]);
             fastIn(y[i]);
-        }
-        int m;
-        fastIn(m);
-        for(int i=0; i<m; i++)
-        {
-            int u,v;
-            fastIn(u);
-            fastIn(v);
-            int xx=Find(u);
-            int yy=Find(v);
-            if(xx!=yy)
+            for(int j=i-1; j>=1; j--)
             {
-                Union(u,v);
-            }
-        }
-        int e=0;
-        for(int i=1; i<=n; i++)
-        {
-            for(int j=i+1; j<=n; j++)
-            {
-                if(Find(i)!=Find(j))
-                {
                     graph[e].u=i;
                     graph[e].v=j;
-                    double val=DIST((double)x[i],(double)x[j],(double)y[i],(double)y[j]);
+                    double val=DIST(x[i],x[j],y[i],y[j]);
                     graph[e].w=val;
                     e++;
-                }
             }
         }
         sort(graph,graph+e,cmp);
         double ans=0.0;
-        vector<pair<int,int> >v;
+        int cc=0;
         for(int i=0; i<e; i++)
         {
             int xx=Find(graph[i].u);
@@ -291,17 +271,13 @@ int main()
             if(xx!=yy)
             {
                 Union(graph[i].u,graph[i].v);
-                v.pb({graph[i].u,graph[i].v});
+                cc++;
+                ans=sqrt(graph[i].w);
+                //cout<<ans<<" ";
+                if(cc==m-n)break;
             }
         }
-        if(v.empty())printf("No new highways need\n");
-        else
-        {
-            for(int i=0; i<v.size(); i++)
-            {
-                printf("%d %d\n",v[i].first,v[i].second);
-            }
-        }
+        printf("%.2f\n",ans);
     }
     //    //end here
     clock_t end = clock();
@@ -309,4 +285,5 @@ int main()
     cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
 

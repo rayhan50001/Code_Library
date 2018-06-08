@@ -238,24 +238,28 @@ int main()
     clock_t begin = clock();
     //    //your code goes here
     int n,m;
-    while(sf2(n,m) && n)
+    while(1)
     {
+        fastIn(n);
+        fastIn(m);
+        if(n==0)break;
         init(n);
         map<string,int>mp;
+        char s[101],s1[101];
         for(int i=0; i<n; i++)
         {
-            string s;
-            cin>>s;
+            scanf("%s",s);
             mp[s]=i+1;
         }
         ll sum=0;
         for(int i=0; i<m; i++)
         {
-            string s1,s2;
+            scanf("%s",s);
+            scanf("%s",s1);
             int w;
-            cin>>s1>>s2>>w;
-            int u = mp[s1];
-            int v = mp[s2];
+            fastIn(w);
+            int u = mp[s];
+            int v = mp[s1];
             graph[i].u=u;
             graph[i].v=v;
             graph[i].w=w;
@@ -274,8 +278,7 @@ int main()
                 cc++;
             }
         }
-        string pp;
-        cin>>pp;
+        scanf("%s",s);
         if(cc==n-1)pfll(sum);
         else printf("Impossible");
         nl;

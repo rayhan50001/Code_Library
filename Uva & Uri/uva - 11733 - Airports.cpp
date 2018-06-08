@@ -1,4 +1,3 @@
-//Kruskal (MST)
 #include<iostream>
 #include<cstdio>
 #include<list>
@@ -84,7 +83,7 @@ using namespace std;
 #define mod 1000000007
 #define inf INT_MAX
 #define MX 100010
-#define DIST(x1,x2, y1, y2) sqrt(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
+#define DIST(x1,x2, y1, y2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
 #define DIST3D(x1,x2, y1, y2, z1, z2) (((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)) + ((z1-z2)*(z1-z2)))
 #define fast ios_base::sync_with_stdio(false);
 int power(int x, unsigned int y)
@@ -197,27 +196,25 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 }
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
 //int dx[]= {1,1,0,-1,-1,-1,0,1};
-//int dy[]= {0,1,1,1,0,-1,-1,-1}; //8 direction
+//int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 //int dx[6]={2,1,-1,-2,-1,1};int dy[6]={0,1,1,0,-1,-1}; //Hexagonal Direction
 //int EQ(double d) {
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
-int par[1000001];
-int x[1000001];
-int y[1000001];
+int par[100001];
 struct edge{
-    int u,v;
-    double w;
-}graph[1000001];
+int u,v,w;
+}graph[100001];
+int total=0;
 void init(int n)
 {
     for(int i=0; i<=n; i++)par[i]=i;
 }
 int Find(int x)
 {
-    if(x==par[x])return x;
+    if(x==par[x])return par[x];
     return par[x]=Find(par[x]);
 }
 void Union(int x,int y)
@@ -225,11 +222,9 @@ void Union(int x,int y)
     int xx=Find(x);
     int yy=Find(y);
     if(xx!=yy)
-    {
-        par[xx] = yy;
-    }
+        par[xx]=yy,total--;
 }
-bool cmp(edge p1,edge p2)
+bool cmp(edge p1, edge p2)
 {
     return p1.w<p2.w;
 }
@@ -237,71 +232,49 @@ int main()
 {
     clock_t begin = clock();
     //    //your code goes here
-    int tt;
+    //WRITE;
+    int tt,kk=1;
     fastIn(tt);
-    int p=1;
     while(tt--)
     {
-        if(p++>1)nl;
-        int n;
+        int n,m,ww;
         fastIn(n);
-        init(n);
-        for(int i=1; i<=n; i++)
-        {
-            fastIn(x[i]);
-            fastIn(y[i]);
-        }
-        int m;
         fastIn(m);
+        fastIn(ww);
+        int p=0;
         for(int i=0; i<m; i++)
         {
-            int u,v;
-            fastIn(u);
-            fastIn(v);
-            int xx=Find(u);
-            int yy=Find(v);
-            if(xx!=yy)
+            int u,v,w;
+             fastIn(u);
+             fastIn(v);
+             fastIn(w);
+            if(w<ww)
             {
-                Union(u,v);
+            graph[p].u=u;
+            graph[p].v=v;
+            graph[p].w=w;
+            p++;
             }
         }
-        int e=0;
-        for(int i=1; i<=n; i++)
-        {
-            for(int j=i+1; j<=n; j++)
-            {
-                if(Find(i)!=Find(j))
-                {
-                    graph[e].u=i;
-                    graph[e].v=j;
-                    double val=DIST((double)x[i],(double)x[j],(double)y[i],(double)y[j]);
-                    graph[e].w=val;
-                    e++;
-                }
-            }
-        }
-        sort(graph,graph+e,cmp);
-        double ans=0.0;
-        vector<pair<int,int> >v;
-        for(int i=0; i<e; i++)
+        init(n);
+        total=n;
+        m=p;
+        sort(graph,graph+m,cmp);
+        int cost=0;
+        for(int i=0; i<m; i++)
         {
             int xx=Find(graph[i].u);
             int yy=Find(graph[i].v);
-            //cout<<graph[i].w<<endl;
             if(xx!=yy)
             {
                 Union(graph[i].u,graph[i].v);
-                v.pb({graph[i].u,graph[i].v});
+                cost+=graph[i].w;
             }
         }
-        if(v.empty())printf("No new highways need\n");
-        else
-        {
-            for(int i=0; i<v.size(); i++)
-            {
-                printf("%d %d\n",v[i].first,v[i].second);
-            }
-        }
+        cost+=total*ww;
+        printf("Case #%d: %d %d",kk++,cost,total);
+        nl;
+
     }
     //    //end here
     clock_t end = clock();

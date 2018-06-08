@@ -264,14 +264,11 @@ int main()
         {
             for(int j=i+1; j<=n; j++)
             {
-                if(Find(i)!=Find(j))
-                {
                     graph[e].u=i;
                     graph[e].v=j;
                     double val=DIST(x[i],x[j],y[i],y[j]);
                     graph[e].w=val;
                     e++;
-                }
             }
         }
         sort(graph,graph+e,cmp);

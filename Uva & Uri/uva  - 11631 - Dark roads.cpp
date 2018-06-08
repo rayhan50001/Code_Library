@@ -237,14 +237,19 @@ int main()
     clock_t begin = clock();
     //    //your code goes here
     int n,m;
-    while(sf2(n,m) && n && m)
+    while(1)
     {
+        fastIn(n);
+        fastIn(m);
+        if(n==0 && m==0)break;
         init(n);
         ll sum=0;
         for(int i=0; i<m; i++)
         {
             int u,v,w;
-            sf3(u,v,w);
+            fastIn(u);
+            fastIn(v);
+            fastIn(w);
             graph[i].u=u;
             graph[i].v=v;
             graph[i].w=w;
