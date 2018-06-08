@@ -196,21 +196,62 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 }
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
 //int dx[]= {1,1,0,-1,-1,-1,0,1};
-//int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
+int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 //int dx[6]={2,1,-1,-2,-1,1};int dy[6]={0,1,1,0,-1,-1}; //Hexagonal Direction
 //int EQ(double d) {
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+char grid[1001][1001];
+bool isvalid(int x,int y,int n,int m)
+{
+    if(x>=0 && y>=0 && x<n && y<m)return true;
+    else return false;
+}
 int main()
 {
     clock_t begin = clock();
     //    //your code goes here
-
+    int n,m,kk=1;
+    while(sf2(n,m))
+    {
+        if(n==0 && m==0)break;
+        if(kk++>1)nl;
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<m; j++)
+            {
+                cin>>grid[i][j];
+            }
+        }
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<m; j++)
+            {
+                if(grid[i][j]=='.')
+                {
+                    int c=0;
+                    for(int k=0; k<8; k++)
+                    {
+                        int rr=i+dx[k];
+                        int cc=j+dy[k];
+                        if(isvalid(rr,cc,n,m) && grid[rr][cc]=='*')c++;
+                    }
+                    grid[i][j]=char(c+'0');
+                }
+            }
+        }
+        printf("Field #%d:\n",kk-1);
+        for(int i=0; i<n; i++)
+        {
+            puts(grid[i]);
+        }
+    }
     //    //end here
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
