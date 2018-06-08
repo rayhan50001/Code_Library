@@ -1,3 +1,4 @@
+//graph 8 direction
 #include<iostream>
 #include<cstdio>
 #include<list>
@@ -213,11 +214,13 @@ int main()
 {
     clock_t begin = clock();
     //    //your code goes here
+    //WRITE;
     int n,m,kk=1;
     while(sf2(n,m))
     {
         if(n==0 && m==0)break;
         if(kk++>1)nl;
+        memset(grid,'\0',sizeof grid);
         for(int i=0; i<n; i++)
         {
             for(int j=0; j<m; j++)
