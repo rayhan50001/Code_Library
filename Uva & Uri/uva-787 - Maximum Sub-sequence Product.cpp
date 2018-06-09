@@ -1,4 +1,5 @@
 //                            ببِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+//hint from geeks for geeks
 #include<iostream>
 #include<cstdio>
 #include<list>
