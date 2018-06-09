@@ -1,4 +1,4 @@
-//all possible combination (recursion)
+//all possible combination (recursion)/backtrack
 #include<iostream>
 #include<cstdio>
 #include<list>
