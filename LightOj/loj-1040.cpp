@@ -203,14 +203,88 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+int par[100001];
+struct node{
+int u,v,w;
+}edge[100001];
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(par[x]==x)return x;
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+    {
+        par[yy]=xx;
+    }
+}
+bool cmp(node p1, node p2)
+{
+    return p1.w<p2.w;
+}
 int main()
 {
 //    clock_t begin = clock();
     //    //your code goes here
-
+    int tt,kk=1;
+    sf(tt);
+    while(tt--)
+    {
+        int n;
+        sf(n);
+        init(n);
+        int ed=0;
+        int total=0;
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                int w;
+                sf(w);
+                if(w>0)
+                {
+                edge[ed].u=i;
+                edge[ed].v=j;
+                edge[ed].w=w;
+                ed++;
+                total+=w;
+                }
+            }
+        }
+        int total_edge=0,res=0;
+        sort(edge,edge+ed,cmp);
+        for(int i=0; i<ed; i++)
+        {
+            int u=edge[i].u;
+            int v=edge[i].v;
+            int w=edge[i].w;
+            int xx=Find(u);
+            int yy=Find(v);
+            //cout<<u<<"=> "<<xx<<" "<<v<<"=> "<<yy<<endl;
+            if(xx!=yy)
+            {
+                Union(u,v);
+                res+=w;
+                total_edge++;
+            }
+        }
+        cs;
+        //cout<<total_edge<<" ";
+        if(total_edge==n-1)pf(total-res);
+        else pf(-1);
+        nl;
+    }
     //    //end here
 //    clock_t end = clock();
 //    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 //    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+

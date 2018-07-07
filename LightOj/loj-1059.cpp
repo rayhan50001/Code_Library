@@ -203,14 +203,84 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+int par[100001];
+struct edge{
+int u,v,w;
+}graph[100001];
+int total=0;
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(x==par[x])return par[x];
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+        par[xx]=yy,total--;
+}
+bool cmp(edge p1, edge p2)
+{
+    return p1.w<p2.w;
+}
 int main()
 {
-//    clock_t begin = clock();
+    //clock_t begin = clock();
     //    //your code goes here
+    //WRITE;
+    int tt,kk=1;
+    fastIn(tt);
+    while(tt--)
+    {
+        int n,m,ww;
+        fastIn(n);
+        fastIn(m);
+        fastIn(ww);
+        int p=0;
+        for(int i=0; i<m; i++)
+        {
+            int u,v,w;
+             fastIn(u);
+             fastIn(v);
+             fastIn(w);
+            if(w<ww)
+            {
+            graph[p].u=u;
+            graph[p].v=v;
+            graph[p].w=w;
+            p++;
+            }
+        }
+        init(n);
+        total=n;
+        m=p;
+        sort(graph,graph+m,cmp);
+        int cost=0;
+        for(int i=0; i<m; i++)
+        {
+            int xx=Find(graph[i].u);
+            int yy=Find(graph[i].v);
+            if(xx!=yy)
+            {
+                Union(graph[i].u,graph[i].v);
+                cost+=graph[i].w;
+            }
+        }
+        cost+=total*ww;
+        printf("Case %d: %d %d",kk++,cost,total);
+        nl;
 
+    }
     //    //end here
-//    clock_t end = clock();
-//    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-//    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
+    //clock_t end = clock();
+    //double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    //cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
+

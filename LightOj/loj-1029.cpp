@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<cstdio>
 #include<list>
@@ -25,7 +26,6 @@
 #include<ctime>
 #include<complex>
 #include<bits/stdc++.h>
-//#include<unordered_map>
 using namespace std;
 //define for shortcut
 #define mem(a) memset(a,0,sizeof(a))
@@ -203,11 +203,92 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+int par[1000001];
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(x==par[x])return x;
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+    {
+        par[yy]=xx;
+    }
+}
+struct node{
+int u,v,w;
+}edge[1000001];
+bool cmp(node p1, node p2)
+{
+    return p1.w<p2.w;
+}
 int main()
 {
-//    clock_t begin = clock();
+    //clock_t begin = clock();
     //    //your code goes here
-
+    int tt,kk=1;
+    sf(tt);
+    while(tt--)
+    {
+        int n;
+        sf(n);
+        init(n);
+        int ed=0;
+        int u,v,w;
+        while(sf3(u,v,w))
+        {
+            if(u==0 && v==0 && w==0)break;
+            edge[ed].u=u;
+            edge[ed].v=v;
+            edge[ed].w=w;
+            ed++;
+        }
+        sort(edge,edge+ed,cmp);
+        int best=0;
+        for(int i=0; i<ed; i++)
+        {
+            u=edge[i].u;
+            v=edge[i].v;
+            w=edge[i].w;
+            int xx=Find(u);
+            int yy=Find(v);
+            if(xx!=yy)
+            {
+                Union(u,v);
+                best+=w;
+            }
+        }
+        init(n);
+        int worst=0;
+        for(int i=ed-1; i>=0; i--)
+        {
+            u=edge[i].u;
+            v=edge[i].v;
+            w=edge[i].w;
+            int xx=Find(u);
+            int yy=Find(v);
+            if(xx!=yy)
+            {
+                Union(u,v);
+                worst+=w;
+            }
+        }
+        cs;
+        int total=best+worst;
+        if(total%2==0)pf(total/2);
+        else
+        {
+            printf("%d/2",total);
+        }
+        nl;
+    }
     //    //end here
 //    clock_t end = clock();
 //    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

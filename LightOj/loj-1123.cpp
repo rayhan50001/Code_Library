@@ -203,14 +203,93 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+int par[100001],ed=0;
+struct node{
+int u,v,w;
+}edge[100001];
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(par[x]==x)return x;
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+    {
+        par[yy]=xx;
+    }
+}
+bool cmp(node p1, node p2)
+{
+    return p1.w<p2.w;
+}
+int spt(int n)
+{
+        init(n);
+        sort(edge,edge+ed,cmp);
+        int cost=0,total=0,pre=-1;
+        for(int i=0; i<ed; i++)
+        {
+            int u=edge[i].u;
+            int v=edge[i].v;
+            int w=edge[i].w;
+            int xx=Find(u);
+            int yy=Find(v);
+            //cout<<u<<"=> "<<xx<<"  "<<v<<"=> "<<yy<<endl;
+            if(xx!=yy)
+            {
+                total++;
+                Union(u,v);
+                cost+=w;
+            }
+            else pre=i;
+        }
+        if(pre!=-1)
+        {
+            ed--;
+            edge[pre]=edge[ed];
+        }
+        if(total==n-1)return cost;
+        else return -1;
+}
 int main()
 {
 //    clock_t begin = clock();
     //    //your code goes here
-
+    //WRITE;
+    int tt,kk=1;
+    sf(tt);
+    while(tt--)
+    {
+        int n,e;
+        sf2(n,e);
+        cn;
+        ed=0;
+        while(e--)
+        {
+          int u,v,w;
+          sf3(u,v,w);
+          edge[ed].u=u;
+          edge[ed].v=v;
+          edge[ed].w=w;
+          ed++;
+          int answer=spt(n);
+          pf(answer);
+          nl;
+        }
+    }
     //    //end here
 //    clock_t end = clock();
 //    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 //    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
+
+

@@ -203,14 +203,92 @@ inline void fastIn(int &num)            // Fast IO, with space and new line igno
 //    if ( fabs(d) < EPS ) return 0;
 //    return d > EPS ? 1 : -1 ;
 //}
+int par[100001];
+struct node{
+int u,v,w;
+}edge[100001];
+void init(int n)
+{
+    for(int i=0; i<=n; i++)par[i]=i;
+}
+int Find(int x)
+{
+    if(par[x]==x)return x;
+    return par[x]=Find(par[x]);
+}
+void Union(int x,int y)
+{
+    int xx=Find(x);
+    int yy=Find(y);
+    if(xx!=yy)
+    {
+        par[yy]=xx;
+    }
+}
+bool cmp(node p1, node p2)
+{
+    return p1.w<p2.w;
+}
 int main()
 {
 //    clock_t begin = clock();
     //    //your code goes here
-
+    int tt,kk=1;
+    sf(tt);
+    while(tt--)
+    {
+        int n;
+        sf(n);
+        map<string,int>mp;
+        int nd=0,ed=0;
+        while(n--)
+        {
+            string s1,s2;
+            int w;
+            cin>>s1>>s2;
+            sf(w);
+            if(mp.find(s1)==mp.end())
+            {
+                mp[s1]=nd++;
+            }
+            if(mp.find(s2)==mp.end())
+            {
+                mp[s2]=nd++;
+            }
+            edge[ed].u=mp[s1];
+            edge[ed].v=mp[s2];
+            edge[ed].w=w;
+            ed++;
+        }
+        init(nd);
+        sort(edge,edge+ed,cmp);
+        int cost=0;
+        for(int i=0; i<ed; i++)
+        {
+            int u=edge[i].u;
+            int v=edge[i].v;
+            int w=edge[i].w;
+            int xx=Find(u);
+            int yy=Find(v);
+            //cout<<u<<"=> "<<xx<<"  "<<v<<"=> "<<yy<<endl;
+            if(xx!=yy)
+            {
+                Union(u,v);
+                cost+=w;
+            }
+        }
+        cs;
+        set<int>s;
+        for(int i=0; i<nd; i++)s.insert(Find(i));
+        if(s.size()==1)pf(cost);
+        else printf("Impossible");
+        nl;
+    }
     //    //end here
 //    clock_t end = clock();
 //    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 //    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
+
