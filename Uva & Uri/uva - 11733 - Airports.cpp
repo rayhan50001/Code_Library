@@ -25,7 +25,7 @@
 #include<ctime>
 #include<complex>
 #include<bits/stdc++.h>
-#include<unordered_map>
+//#include<unordered_map>
 using namespace std;
 //define for shortcut
 #define mem(a) memset(a,0,sizeof(a))
@@ -230,7 +230,7 @@ bool cmp(edge p1, edge p2)
 }
 int main()
 {
-    clock_t begin = clock();
+    //clock_t begin = clock();
     //    //your code goes here
     //WRITE;
     int tt,kk=1;
@@ -277,9 +277,9 @@ int main()
 
     }
     //    //end here
-    clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
+    //clock_t end = clock();
+    //double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    //cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
 
