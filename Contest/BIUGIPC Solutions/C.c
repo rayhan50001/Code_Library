@@ -2,24 +2,20 @@
 #define ll long long
 int main()
 {
-    int test_case,ii;
-    scanf("%d",&test_case);
-    for(ii = 1; ii <= test_case; ii++)
-    {
         ll A, B, C, D;
-        ll litter;
-        scanf(" %lld %lld %lld %lld", &A, &B, &C, &D);
-        scanf(" %lld ",& litter);
+        ll n;
+        scanf("%lld %lld %lld %lld", &A, &B, &C, &D);
+        scanf("%lld",& n);
         ll price[5];
         price[0] = A;
         price[1] = B;
         price[2] = C;
         price[3] = D;
+        int i;
         if(n == 1)
         {
             price[0] *= 4;//0.25*4 = 1 Litter
             price[1] *= 2;//0.5*2 = 1 Litter
-            int i;
             ll min = 99999999999999999;
             for (i = 0; i < 3; i++)
             {
@@ -37,7 +33,7 @@ int main()
             price[2] *= 2;// 1*2 = 2 litter
 
             ll min = 999999999999999;
-            for(int i = 0; i < 4; i++)
+            for(i = 0; i < 4; i++)
             {
                 if(min > price[i])
                 {
@@ -51,7 +47,7 @@ int main()
             else
             {
                 ll min_new = 999999999999999;
-                for (int i = 0; i < 3; i++)
+                for (i = 0; i < 3; i++)
                 {
                     if(min_new > price[i])
                     {
@@ -61,8 +57,6 @@ int main()
                 printf("%lld\n", ((n / 2) * min) + (min_new / 2));
             }
         }
-
-    }
 }
 
 
