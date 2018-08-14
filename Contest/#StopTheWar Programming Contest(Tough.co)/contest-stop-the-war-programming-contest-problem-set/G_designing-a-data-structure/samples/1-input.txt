@@ -1,0 +1,9 @@
+8
+Insert Back 8
+Get Front
+Insert Front 9
+Get Max
+Erase Back
+Insert Back 3
+Get Back
+Get Min
