@@ -127,6 +127,7 @@ int KMPSearch(char *pat, char *txt)
         if (j == M)
         {
             mx++;
+            cout<<i<<" ";
             j = lps[j-1];
         }
 
