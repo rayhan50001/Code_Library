@@ -85,7 +85,7 @@ int main()
 {
     sieve();
     calc();
-    //printf("%d %d",len,sz);
+    printf("%d %d",prime[len-1],len);
     int tt,kk=1;
     scanf("%d",&tt);
     while(tt--)
