@@ -113,7 +113,7 @@ void build(ll idx,ll l,ll r)
 {
     if(l==r)
     {
-        tree[idx]=l%2;
+        tree[idx]=l%2;//make all odd=1 for finding odd number using segment summation
         return;
     }
     ll mid=(l+r)>>1;
@@ -125,6 +125,7 @@ void build(ll idx,ll l,ll r)
 }
 void update(ll idx,ll l,ll r,ll pos)
 {
+    //cout<<pos<<" "<<l<<" "<<r<<endl;
     if(l==r)
     {
         tree[idx]=0;
@@ -139,6 +140,7 @@ void update(ll idx,ll l,ll r,ll pos)
 }
 ll Query(ll idx,ll l,ll r,ll pos)
 {
+
     if(l==r)
     {
         return l;
@@ -158,10 +160,15 @@ int main()
     for(int i=2; i<=100000; i++)
     {
         ll val=Query(1,1,mx,i);
+        //system("pause");
         res[i]=val;
         int c=0;
         for(ll j=val; j<=mx; j+=val)
+        {
+            //cout<<j-c<<"==>";
             update(1,1,mx,j-c),c++;
+
+        }
     }
     int tt;
     sf(tt);
@@ -180,3 +187,4 @@ int main()
 //    cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
     return 0;
 }
+
