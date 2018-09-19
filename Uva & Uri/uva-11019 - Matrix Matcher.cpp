@@ -1,3 +1,5 @@
+//Hash & 2D range sum
+//TL: 1.480s
 #include<bits/stdc++.h>
 using namespace std;
 #define MOD1 1000000007
