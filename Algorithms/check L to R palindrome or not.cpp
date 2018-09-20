@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define p 101
+#define p 37
 #define MOD 1000000007
 
 // Structure to represent a query. A query consists
@@ -134,9 +134,8 @@ void computePowers(unsigned long long int power[], int n)
 /* Driver program to test above function */
 int main()
 {
-    string str = "abaaabaaaba";
+    string str = "aaabbaaacdf";
     int n = str.length();
-
     // A Table to store the powers of 101
     unsigned long long int power[n+1];
 
@@ -148,10 +147,23 @@ int main()
     // Compute Prefix Hash and Suffix Hash Arrays
     computePrefixHash(str, n, prefix, power);
     computeSuffixHash(str, n, suffix, power);
-
-    Query q[] = {{0, 10}, {5, 8}, {2, 5}, {5, 9}};
+    for(int i=0; i<=n; i++)
+    {
+        cout<<prefix[i]<<" ";
+    }
+    cout<<endl;
+    for(int i=0; i<=n; i++)
+    {
+        cout<<suffix[i]<<" ";
+    }
+    cout<<endl;
+    Query q[] = {{0, 7}, {5, 8}, {2, 5}, {5, 9}};
     int m = sizeof(q)/sizeof(q[0]);
 
     queryResults(str, q, m, n, prefix, suffix, power);
     return (0);
 }
+/*
+0 108 3697 151549 5470114 222872790
+0 116 4001 151853 5065194 207474582
+*/

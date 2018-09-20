@@ -95,7 +95,7 @@ int main() {
 
     for (int i = 0; i < len; i++) {
         addLetter(i);
-        ans += tree[suff].num;
+        cout<<tree[suff].len<<endl;
     }
 
     cout << ans << endl;
