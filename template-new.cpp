@@ -1,6 +1,9 @@
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
 
 
+
+//everything is long long
+
 #include<bits/stdc++.h>
 //#include<unordered_map>
 
@@ -9,38 +12,38 @@ using namespace std;
 //... Define Section
 
 #define   mem(a,val)		memset(a,val,sizeof(a))
-#define   all(a)		    a.begin(),a.end()
-#define   sz(A) 	    	A.size()
-#define   len(A)		    strlen(A)
-#define   ff            first
-#define   ss            second
-#define   pb 			      push_back
-#define   PI			      acos(-1.00)
-#define   ll			      long long
-#define   pii			      pair<ll,ll>
-#define   READ 			    freopen("input.txt", "r", stdin)
-#define   WRITE 		    freopen("output.txt", "w", stdout)
+#define   all(a)		a.begin(),a.end()
+#define   sz(A) 		A.size()
+#define   len(A)		strlen(A)
+#define   ff                  	first
+#define   ss                  	second
+#define   pb 			push_back
+#define   PI			acos(-1.00)
+#define   ll			long long
+#define   pii			pair<ll,ll>
+#define   READ 			freopen("input.txt", "r", stdin)
+#define   WRITE 		freopen("output.txt", "w", stdout)
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
-#define   RFOR(i,a,b) 	for(int i=a;i>=b;i--)
-#define   sfll(a) 		  scanf("%lld",&a)
+#define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
+#define   sfll(a) 		scanf("%lld",&a)
 #define   sfll2(a,b) 		scanf("%lld%lld",&a,&b)
-#define   sfll3(a,b,c) 	scanf("%lld%lld%lld",&a,&b,&c)
-#define   cs 			      printf("Case %d: ",kk++)
-#define   cn 			      printf("Case %d:\n",kk++)
-#define   pfll(a) 		  printf("%lld",a)
-#define   nl			      printf("\n")
-#define   done 			    printf("DONE\n")
-#define   EPS			      1e-9
-#define   MOD 			    1000000007
-#define   MAX			      1e6
-#define   fast 			    ios_base::sync_with_stdio(false);
+#define   sfll3(a,b,c) 		scanf("%lld%lld%lld",&a,&b,&c)
+#define   cs 			printf("Case %d: ",kk++)
+#define   cn 			printf("Case %d:\n",kk++)
+#define   pfll(a) 		printf("%lld",a)
+#define   nl			printf("\n")
+#define   done 			printf("DONE\n")
+#define   EPS			1e-9
+#define   MOD 			1000000007
+#define   MAX			1e6
+#define   fast 			ios_base::sync_with_stdio(false);
 
 //BitMask Section
 
-#define   setbit(mask,i) 	  mask |= (1<<i) // mask = 1010 i=2 then mask = 1110
+#define   setbit(mask,i) 	mask |= (1<<i) // mask = 1010 i=2 then mask = 1110
 #define   clearbit(mask,i) 	mask &= ~(1<<i) // mask = 1010 i=3 then mask = 0010
 #define   checkbit(mask,i) 	mask &  (1<<i) // mask = 1010 i=3 then mask = 1000
-#define   togglebit(mask,i) mask ^= (1<<bit)
+#define   togglebit(mask,i) 	mask ^= (1<<bit)
 
 //Default Function
 
@@ -66,7 +69,7 @@ clock_t begin,end;
 double time_spent;
 #define   timestart()		begin=clock()
 #define   timestop()		end=clock()
-#define   calc()		    time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+#define   calc()		time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 #define   timelimit()		cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;
 
 
