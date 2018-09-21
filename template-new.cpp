@@ -21,22 +21,22 @@ using namespace std;
 #define   PI			acos(-1.00)
 #define   ll			long long
 #define   pii			pair<ll,ll>
-#define   READ 			freopen("input.txt", "r", stdin)
+#define   READ 		freopen("input.txt", "r", stdin)
 #define   WRITE 		freopen("output.txt", "w", stdout)
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
 #define   sfll(a) 		scanf("%lld",&a)
 #define   sfll2(a,b) 		scanf("%lld%lld",&a,&b)
-#define   sfll3(a,b,c) 		scanf("%lld%lld%lld",&a,&b,&c)
+#define   sfll3(a,b,c) 	scanf("%lld%lld%lld",&a,&b,&c)
 #define   cs 			printf("Case %d: ",kk++)
 #define   cn 			printf("Case %d:\n",kk++)
 #define   pfll(a) 		printf("%lld",a)
 #define   nl			printf("\n")
-#define   done 			printf("DONE\n")
+#define   done 		printf("DONE\n")
 #define   EPS			1e-9
 #define   MOD 			1000000007
 #define   MAX			1e6
-#define   fast 			ios_base::sync_with_stdio(false);
+#define   fast 		ios_base::sync_with_stdio(false);
 
 //BitMask Section
 
