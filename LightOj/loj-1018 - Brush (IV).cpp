@@ -98,10 +98,9 @@ ll solve(ll mask,ll n)
                 if(checkBit(mask,j)==0 && i!=j)
                 ans=min(ans,1+solve(mask|colinear[i][j],n));
             }
-            break;
+            return dp[mask]=ans;
         }
     }
-    return dp[mask]=ans;
 }
 // MAIN FUNCTION
 int main()
