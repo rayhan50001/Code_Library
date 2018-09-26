@@ -1,7 +1,5 @@
-// minimum number of straight line need cover all points. (bitmask dp)
+
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
-
-
 
 //everything is long long
 
