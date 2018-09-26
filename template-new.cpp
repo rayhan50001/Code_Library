@@ -1,3 +1,4 @@
+// minimum number of straight line need cover all points. (bitmask dp)
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
 
 
@@ -19,18 +20,18 @@ using namespace std;
 #define   ss                second
 #define   pb 			    push_back
 #define   PI			    acos(-1.00)
-#define   ll			    long long
+#define   ll			    int
 #define   pii			    pair<ll,ll>
 #define   READ 		        freopen("input.txt", "r", stdin)
 #define   WRITE 		    freopen("output.txt", "w", stdout)
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
-#define   sfll(a) 		    scanf("%lld",&a)
-#define   sfll2(a,b) 		scanf("%lld%lld",&a,&b)
+#define   sfll(a) 		    scanf("%d",&a)
+#define   sfll2(a,b) 		scanf("%d %d",&a,&b)
 #define   sfll3(a,b,c) 	    scanf("%lld%lld%lld",&a,&b,&c)
 #define   cs 			    printf("Case %d: ",kk++)
 #define   cn 			    printf("Case %d:\n",kk++)
-#define   pfll(a) 		    printf("%lld",a)
+#define   pfll(a) 		    printf("%d",a)
 #define   nl			    printf("\n")
 #define   done 		        printf("DONE\n")
 #define   EPS			    1e-9
@@ -40,11 +41,12 @@ using namespace std;
 
 //BitMask Section
 
-#define   setbit(mask,i) 	mask |= (1<<i) // mask = 1010 i=2 then mask = 1110
-#define   clearbit(mask,i) 	mask &= ~(1<<i) // mask = 1010 i=3 then mask = 0010
-#define   checkbit(mask,i) 	mask &  (1<<i) // mask = 1010 i=3 then mask = 1000
-#define   togglebit(mask,i) mask ^= (1<<bit)
-
+#define   checkBit(S, j)    (S & (1 << j))
+#define   setBit(S, j)      (S |= (1 << j))
+#define   clearBit(S, j)    (S &= ~(1 << j))
+#define   toggleBit(S, j)   (S ^= (1 << j))
+#define   lowBit(S)         (S & (-S))
+#define   setAll(S, n)      (S = (1 << n) - 1)
 //Default Function
 
 template<typename T>inline string Tostring(T a){ostringstream os("");os << a;return os.str();} //number to string
@@ -71,10 +73,9 @@ double time_spent;
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
 
-
 // MAIN FUNCTION
 int main()
 {
-
+  
     return 0;
 }
