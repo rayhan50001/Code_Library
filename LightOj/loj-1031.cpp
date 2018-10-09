@@ -25,6 +25,7 @@ using namespace std;
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
 #define   sfll(a) 		    scanf("%lld",&a)
+#define   sf(a) 		    scanf("%d",&a)
 #define   sfll2(a,b) 		scanf("%lld %lld",&a,&b)
 #define   sfll3(a,b,c) 	    scanf("%lld%lld%lld",&a,&b,&c)
 #define   cs 			    printf("Case %lld: ",kk++)
@@ -71,8 +72,44 @@ double time_spent;
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
 // start coding
-
+ll arr[10001];
+ll cum[10001];
+ll dp[1001][1001];
+ll solve(int l,int r)
+{
+    if(l>r)return 0;
+    if(l==r)return arr[l];
+    if(dp[l][r]!=-1)return dp[l][r];
+    ll ans=-INT_MAX;
+    for(int k=l; k<=r; k++)
+    {
+        ans=max(ans,cum[k]-cum[l-1]-solve(k+1,r));
+    }
+    for(int k=r; k>=l; k--)
+    {
+        ans=max(ans,cum[r]-cum[k-1]-solve(l,k-1));
+    }
+    return dp[l][r]=ans;
+}
 int main()
 {
-
+    int tt;
+    ll kk=1;
+    sf(tt);
+    while(tt--)
+    {
+        mem(dp,-1);
+        int n;
+        sf(n);
+        cum[0]=0;
+        FOR(i,1,n)
+        {
+            sfll(arr[i]);
+            cum[i]=cum[i-1]+arr[i];
+        }
+        ll ans=solve(1,n);
+        cs;
+        pfll(ans);
+        nl;
+    }
 }

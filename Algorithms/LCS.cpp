@@ -1,6 +1,6 @@
+int lcs[1000][1000];
 int LCS(string a,string b)
 {
-    int lcs[1000][1000];
     for(int i=0; i<=a.size(); i++)
     {
         for(int j=0; j<=b.size(); j++)

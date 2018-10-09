@@ -70,9 +70,58 @@ double time_spent;
 #define   timestart()		begn=clock()
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
-// start coding
+
+// MAIN FUNCTION
+vector<ll>TREE[1000001];
+ll arr[300001];
+void build(ll node, ll l, ll r)
+{
+    if(l==r)
+    {
+        TREE[node].pb(arr[l]);
+        return;
+    }
+    ll mid = (l+r)/2;
+    ll lft = 2*node;
+    ll rgt = lft+1;
+    build(lft,l,mid);
+    build(rgt,mid+1,r);
+    merge(all(TREE[lft]),all(TREE[rgt]),back_inserter(TREE[node]));
+}
+ll query(ll node, ll l, ll r, ll L, ll R, ll k)
+{
+    if(r<L || R<l)return 0;
+    if(L <= l && r <= R)//F**K
+    {
+        ll big=lower_bound(all(TREE[node]),k)-TREE[node].begin();
+        return big;
+    }
+    ll mid = (l+r)/2;
+    ll lft = 2*node;
+    ll rgt = lft+1;
+    ll left=query(lft,l,mid,L,R,k);
+    ll right=query(rgt,mid+1,r,L,R,k);
+    return left+right;
+}
 
 int main()
 {
-
+    ll n;
+    sfll(n);
+    for(int i=1; i<=n; i++)
+    {
+        sfll(arr[i]);
+    }
+    build(1,1,n);
+    ll ans=0;
+    for(ll i=n; i>=2; i--)
+    {
+        ll L=1;
+        ll R=min(arr[i],i-1);
+        ll low=query(1,1,n,L,R,i);
+        //cout<<L<<" "<<ff<<" "<<i<<"=="<<low<<endl;
+        ans+=R-low;
+    }
+    pfll(ans);
+    return 0;
 }

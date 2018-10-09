@@ -1,5 +1,8 @@
+//check all possible partition
 
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
+
+
 
 //everything is long long
 
@@ -25,10 +28,10 @@ using namespace std;
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
 #define   sfll(a) 		    scanf("%lld",&a)
-#define   sfll2(a,b) 		scanf("%lld %lld",&a,&b)
+#define   sfll2(a,b) 		scanf("%lld%lld",&a,&b)
 #define   sfll3(a,b,c) 	    scanf("%lld%lld%lld",&a,&b,&c)
-#define   cs 			    printf("Case %lld: ",kk++)
-#define   cn 			    printf("Case %lld:\n",kk++)
+#define   cs 			    printf("Case %d: ",kk++)
+#define   cn 			    printf("Case %d:\n",kk++)
 #define   pfll(a) 		    printf("%lld",a)
 #define   nl			    printf("\n")
 #define   done 		        printf("DONE\n")
@@ -39,12 +42,11 @@ using namespace std;
 
 //BitMask Section
 
-#define   checkBit(S, j)    (S & (1 << j))
-#define   setBit(S, j)      (S |= (1 << j))
-#define   clearBit(S, j)    (S &= ~(1 << j))
-#define   toggleBit(S, j)   (S ^= (1 << j))
-#define   lowBit(S)         (S & (-S))
-#define   setAll(S, n)      (S = (1 << n) - 1)
+#define   setbit(mask,i) 	mask |= (1<<i) // mask = 1010 i=2 then mask = 1110
+#define   clearbit(mask,i) 	mask &= ~(1<<i) // mask = 1010 i=3 then mask = 0010
+#define   checkbit(mask,i) 	mask &  (1<<i) // mask = 1010 i=3 then mask = 1000
+#define   togglebit(mask,i) mask ^= (1<<bit)
+
 //Default Function
 
 template<typename T>inline string Tostring(T a){ostringstream os("");os << a;return os.str();} //number to string
@@ -70,9 +72,51 @@ double time_spent;
 #define   timestart()		begn=clock()
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
-// start coding
-
+string s;
+ll palin[1001][1001];
+ll dp[1001];
+int palindrome(int l,int r)
+{
+    if(l>=r)return 1;
+    if(palin[l][r]!=-1)return palin[l][r];
+    if(s[l]==s[r])
+    {
+        return palin[l][r]=palindrome(l+1,r-1);
+    }
+    else return 0;
+}
+ll solve(ll pos)
+{
+    if(pos==s.size())return 0;
+    if(dp[pos]!=-1)return dp[pos];
+    ll ans=1e9;
+    for(int i=pos; i<s.size(); i++)
+    {
+//        cout<<pos<<" "<<i<<" "<<palindrome(pos,i)<<endl;
+//        system("pause");
+        if(palindrome(pos,i))
+        {
+            ans=min(ans,1+solve(i+1));
+        }
+    }
+     ans=min(ans,1+solve(pos+1));
+    return dp[pos]=ans;
+}
+// MAIN FUNCTION
 int main()
 {
-
+    ll tt,kk=1;
+    sfll(tt);
+    while(tt--)
+    {
+        mem(dp,-1);
+        mem(palin,-1);
+        cin>>s;
+        ll ans=solve(0);
+        cs;
+        pfll(ans);
+        nl;
+    }
+    return 0;
 }
+

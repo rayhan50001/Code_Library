@@ -1,5 +1,6 @@
-
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
+
+
 
 //everything is long long
 
@@ -25,10 +26,10 @@ using namespace std;
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
 #define   sfll(a) 		    scanf("%lld",&a)
-#define   sfll2(a,b) 		scanf("%lld %lld",&a,&b)
+#define   sfll2(a,b) 		scanf("%lld%lld",&a,&b)
 #define   sfll3(a,b,c) 	    scanf("%lld%lld%lld",&a,&b,&c)
-#define   cs 			    printf("Case %lld: ",kk++)
-#define   cn 			    printf("Case %lld:\n",kk++)
+#define   cs 			    printf("Case %d: ",kk++)
+#define   cn 			    printf("Case %d:\n",kk++)
 #define   pfll(a) 		    printf("%lld",a)
 #define   nl			    printf("\n")
 #define   done 		        printf("DONE\n")
@@ -39,12 +40,11 @@ using namespace std;
 
 //BitMask Section
 
-#define   checkBit(S, j)    (S & (1 << j))
-#define   setBit(S, j)      (S |= (1 << j))
-#define   clearBit(S, j)    (S &= ~(1 << j))
-#define   toggleBit(S, j)   (S ^= (1 << j))
-#define   lowBit(S)         (S & (-S))
-#define   setAll(S, n)      (S = (1 << n) - 1)
+#define   setbit(mask,i) 	mask |= (1<<i) // mask = 1010 i=2 then mask = 1110
+#define   clearbit(mask,i) 	mask &= ~(1<<i) // mask = 1010 i=3 then mask = 0010
+#define   checkbit(mask,i) 	mask &  (1<<i) // mask = 1010 i=3 then mask = 1000
+#define   togglebit(mask,i) mask ^= (1<<bit)
+
 //Default Function
 
 template<typename T>inline string Tostring(T a){ostringstream os("");os << a;return os.str();} //number to string
@@ -70,9 +70,82 @@ double time_spent;
 #define   timestart()		begn=clock()
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
-// start coding
 
+vector<ll>v[100001];
+ll vis[100001];
+vector<ll>in;
+// MAIN FUNCTION
+void dfs(ll u)
+{
+    vis[u]=1;
+    for(int i=0; i<v[u].size(); i++)
+    {
+        ll next=v[u][i];
+        if(!vis[next])
+        {
+            dfs(next);
+        }
+    }
+    in.push_back(u);
+}
+void dfs1(ll u)
+{
+    vis[u]=1;
+    for(int i=0; i<v[u].size(); i++)
+    {
+        ll next=v[u][i];
+        if(!vis[next])
+        {
+            dfs(next);
+        }
+    }
+}
 int main()
 {
-
+    //WRITE;
+    ll tt,kk=1;
+    sfll(tt);
+    while(tt--)
+    {
+        ll n,m;
+        sfll2(n,m);
+        for(int i=0; i<m; i++)
+        {
+            ll x,y;
+            sfll2(x,y);
+            v[x].push_back(y);
+        }
+        mem(vis,0);
+        ll cnt1=0;
+        for(int i=1; i<=n; i++)
+        {
+            if(!vis[i])
+            {
+                cnt1++;
+                dfs(i);
+            }
+        }
+        ll cnt2=0;
+        mem(vis,0);
+        while(!in.empty())
+        {
+            int i=in.back();
+            //cout<<i<<" ";
+            in.pop_back();
+            if(!vis[i])
+            {
+                cnt2++;
+                dfs1(i);
+            }
+        }
+        for(int i=1; i<=n; i++)
+        {
+            v[i].clear();
+        }
+        cs;
+        pfll(min(cnt1,cnt2));
+        nl;
+    }
+    return 0;
 }
+

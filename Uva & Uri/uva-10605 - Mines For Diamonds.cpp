@@ -1,4 +1,5 @@
 
+
 //Bismillahir-Rahmanir-Rahim (In The Name Of ALLAH)
 
 //everything is long long
@@ -24,6 +25,7 @@ using namespace std;
 #define   WRITE 		    freopen("output.txt", "w", stdout)
 #define   FOR(i,a,b) 		for(int i=a;i<=b;i++)
 #define   RFOR(i,a,b) 		for(int i=a;i>=b;i--)
+#define   sf(a)             scanf("%d",&a)
 #define   sfll(a) 		    scanf("%lld",&a)
 #define   sfll2(a,b) 		scanf("%lld %lld",&a,&b)
 #define   sfll3(a,b,c) 	    scanf("%lld%lld%lld",&a,&b,&c)
@@ -60,7 +62,7 @@ template <typename T>inline vector< T > Unique(vector< T > v) {sort(v.begin(), v
 //Direction Array
 
 //int dx[]={1,0,-1,0};int dy[]={0,1,0,-1}; //4 Direction
-//int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
+int dx[]={1,1,0,-1,-1,-1,0,1};int dy[]={0,1,1,1,0,-1,-1,-1};//8 direction
 //int dx[]={2,1,-1,-2,-2,-1,1,2};int dy[]={1,2,2,1,-1,-2,-2,-1};//Knight Direction
 
 //Running Time
@@ -70,9 +72,25 @@ double time_spent;
 #define   timestart()		begn=clock()
 #define   timestop()		ed=clock()
 void      timelimit()		{time_spent = (double)(ed - begn) / CLOCKS_PER_SEC;cerr<<"Running Time: "<<time_spent<<" Seconds"<<endl;}
-// start coding
 
+char gird[101][101];
+
+
+// MAIN FUNCTION
 int main()
 {
+    int tt;
+    sf(tt);
+    while(tt--)
+    {
+        int n,m;
+        sf(n);
+        sf(m);
+        for(int i=0; i<n; i++)
+        {
+            scanf("%s",grid[i]);
+        }
 
+    }
+    return 0;
 }
